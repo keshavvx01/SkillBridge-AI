@@ -4,26 +4,31 @@ function App() {
   const [skills, setSkills] = useState("");
   const [role, setRole] = useState("");
   const [result, setResult] = useState(null);
-
+  const [loading, setLoading] = useState(false);
   const handleAnalyze = async () => {
-    try {
-      const response = await fetch("http://127.0.0.1:8000/api/analyze/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          skills: skills.split(",").map(s => s.trim()),
-          role: role,
-        }),
-      });
+  setLoading(true);   // start loading
 
-      const data = await response.json();
-      setResult(data);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/analyze/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        skills: skills.split(",").map(s => s.trim()),
+        role: role,
+      }),
+    });
+
+    const data = await response.json();
+    setResult(data);
+
+  } catch (err) {
+    console.error(err);
+  }
+
+  setLoading(false);  // stop loading
+};
 
   return (
     <div style={{ padding: "40px", fontFamily: "Arial" }}>
@@ -54,7 +59,7 @@ function App() {
       <button onClick={handleAnalyze} style={{ padding: "10px 20px" }}>
         Analyze
       </button>
-
+       {loading && <p>⏳ Processing...</p>}
       <br /><br />
 
       {result && (
