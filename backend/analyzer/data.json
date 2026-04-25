@@ -1,4 +1,13 @@
 {
-  "DevOps Engineer": ["Linux", "Docker", "CI/CD", "AWS"],
-  "Frontend Developer": ["HTML", "CSS", "JavaScript", "React"]
+    "DevOps Engineer": {
+        "Docker": 3,
+        "Kubernetes": 5,
+        "Aws": 5,
+        "Ci/cd": 3,
+        "Linux": 2
+    },
+    "AI Engineer": {
+        "Python": 2,
+        "Tensorflow": 5
+    }
 }
